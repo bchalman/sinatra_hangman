@@ -12,5 +12,10 @@
   <br> - Six incorrect guesses, and you lose!
 </p>
 
-<button action="/new_game", method="POST">New Game</button>
-<button action="/laod_game", method="POST">Load Game</button>
+<a href='/game'>New game</a>
+<form action="/game", method="GET">
+  <input type="submit" value="New Game">
+</form>
+<form action="/load_game", method="GET">
+  <input type="Submit" value="Load Game">
+</form>

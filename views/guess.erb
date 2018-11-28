@@ -1,0 +1,21 @@
+<p>Guess the <%= solution.length %>-letter word!</p>
+<div>
+
+</div>
+
+<p><%= revealed_letters %></p>
+
+<p>Previous guesses: <%= all_guesses %></p>
+
+<% if guesses_remaining > 1 %>
+  <p>You have <%= guesses_remaining.to_s %> guesses remaining.</p>
+<% else %>
+  <p>You have <%= guesses_remaining.to_s %> guess remaining.</p>
+<% end %>
+
+<form action="/guess", method="POST">
+  <input type="text" name="guess" maxlength="1" required/>
+  <input type="submit" name="submit">
+</form>
+
+<a href="/">Main Menu</a>

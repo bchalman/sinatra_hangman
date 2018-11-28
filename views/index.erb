@@ -1,11 +1,16 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Hangman</title>
-    <link rel="stylesheet" href="styles.css"/>
-  </head>
-  <body>
-    <header>Hangman</header>
-    
-  </body>
-</html>
+<h3>
+  Welcome to Hangman!
+</h3>
+<p>
+  Rules:
+  <br> - The computer will generate a random word, which you need to guess.
+  <br> - The word to guess will be represented by a row of dashes, each dash representing a letter.
+  <br> - Each turn, the player can guess individual letters or the entire word.
+  <br> - A successful letter guess will populate the appropriate display dashes with the chosen letter.
+  <br> - An incorrect guess will be a mark against the player.
+  <br> - Guessing the entire word correctly or filling in all the blanks means you win!
+  <br> - Six incorrect guesses, and you lose!
+</p>
+
+<button action="/new_game", method="POST">New Game</button>
+<button action="/laod_game", method="POST">Load Game</button>

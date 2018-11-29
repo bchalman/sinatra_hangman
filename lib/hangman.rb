@@ -1,14 +1,15 @@
 require 'yaml'
-require './lib/player.rb'
+# require './lib/player.rb'
 
 class Game
-  attr_reader :revealed_letters, :random_word, :guesses_remaining, :player
+  attr_reader :revealed_letters, :random_word, :guesses_remaining, :guesses #, :player
 
   def initialize(game_type)
     @random_word = ""
     @guesses_remaining = 6
-    @player = Player.new
-    @guess_correct = false
+    # @player = Player.new
+    @guesses = []
+    @correct_guess = false
     # welcome()
     # game_type = get_game_type()
     generate_word()
@@ -16,26 +17,25 @@ class Game
 #    play
   end
 
-  def play
+  def play(guess)
 #    while @guesses_remaining > 0
 #      populate_display()
-      @guess_correct = false
-      guess = @player.make_guess(@random_word.length)
-      if guess == "1"
-        save_game()
-  #      next
+      @correct_guess = false
+      if good_guess?(guess)
+        @guesses << guess
+        reveal_letters(guess)
+        @guesses_remaining -= 1 unless @correct_guess
       end
-      reveal_letters(guess)
-      @guesses_remaining -= 1 unless @guess_correct
       game_over?
   #  end
   end
+
 
   def save_game
     @game_saved = true
     Dir.mkdir("saves") unless Dir.exists?("saves")
 
-    data = [@random_word, @guesses_remaining, @revealed_letters, @player]
+    data = [@random_word, @guesses_remaining, @revealed_letters, @guesses]
 
     puts "Name your save file:"
     file_name = "saves/#{gets.chomp}.yaml"
@@ -77,26 +77,28 @@ class Game
     @random_word = data[0]
     @guesses_remaining = data[1]
     @revealed_letters = data[2]
-    @player = data[3]
+    @guesses = data[3]
   end
 
   def game_over?
-    return if @guesses_remaining <= -1
+    # return if @guesses_remaining <= -1
     if @revealed_letters.join("") == @random_word
-      win_message()
+      # win_message()
+      redirect '/win'
     elsif @guesses_remaining == 0
-      lose_message()
+      # lose_message()
+      redirect '/lose'
     end
   end
 
   def reveal_letters(guess)
-    if guess == @random_word
-      win_message()
-    end
+    # if guess == @random_word
+    #   win_message()
+    # end
     @random_word.chars.each_with_index do |char, index|
       if guess == char
         @revealed_letters[index] = char
-        @guess_correct = true
+        @correct_guess = true
       end
     end
   end
@@ -110,50 +112,55 @@ class Game
     @revealed_letters = Array.new(@random_word.length, "_")
   end
 
-  def populate_display
-    puts "\nGuess the #{@random_word.length}-letter word!"
-    if @guesses_remaining > 1
-      puts "You have #{@guesses_remaining} guesses left."
-    else
-      puts "You have #{@guesses_remaining} guess left"
-    end
-    puts "Previous guesses: #{@player.guesses.join(',')}" if @guesses_remaining < 7
-    puts
-    puts "  " + @revealed_letters.join(" ")
-    puts
-    puts "Choose a letter:"
-  end
+  # def populate_display
+  #   puts "\nGuess the #{@random_word.length}-letter word!"
+  #   if @guesses_remaining > 1
+  #     puts "You have #{@guesses_remaining} guesses left."
+  #   else
+  #     puts "You have #{@guesses_remaining} guess left"
+  #   end
+  #   puts "Previous guesses: #{@player.guesses.join(',')}" if @guesses_remaining < 7
+  #   puts
+  #   puts "  " + @revealed_letters.join(" ")
+  #   puts
+  #   puts "Choose a letter:"
+  # end
 
-  def win_message
-    puts "You win!"
-    @guesses_remaining = 0
-  end
-
-  def lose_message
-    puts "You're out of guesses... You lose :("
-    puts "The word was #{@random_word}."
-  end
+  # def win_message
+  #   puts "You win!"
+  #   @guesses_remaining = 0
+  # end
+  #
+  # def lose_message
+  #   puts "You're out of guesses... You lose :("
+  #   puts "The word was #{@random_word}."
+  # end
 
   def end_game_quietly
     @guesses_remaining = -1
   end
 
-  def welcome
-    puts "Welcome to Hangman"
-    puts
-    puts "Rules:"
-    puts " - The computer will generate a random word, which you need to guess."
-    puts " - The word to guess will be represented by a row of dashes, each dash representing a letter."
-    puts " - Each turn, the player can guess individual letters or the entire word."
-    puts " - A successful letter guess will populate the appropriate display dashes with the chosen letter."
-    puts " - An incorrect guess will be a mark against the player."
-    puts " - Guessing the entire word correctly or filling in all the blanks means you win!"
-    puts " - Six incorrect guesses, and you lose!"
-    puts
-    puts "Options:"
-    puts " - At any time during play, input '1' to save your game and exit."
-    puts
-    puts "Input '1' to start a new game, or '2' to load a game:"
+  # def welcome
+  #   puts "Welcome to Hangman"
+  #   puts
+  #   puts "Rules:"
+  #   puts " - The computer will generate a random word, which you need to guess."
+  #   puts " - The word to guess will be represented by a row of dashes, each dash representing a letter."
+  #   puts " - Each turn, the player can guess individual letters or the entire word."
+  #   puts " - A successful letter guess will populate the appropriate display dashes with the chosen letter."
+  #   puts " - An incorrect guess will be a mark against the player."
+  #   puts " - Guessing the entire word correctly or filling in all the blanks means you win!"
+  #   puts " - Six incorrect guesses, and you lose!"
+  #   puts
+  #   puts "Options:"
+  #   puts " - At any time during play, input '1' to save your game and exit."
+  #   puts
+  #   puts "Input '1' to start a new game, or '2' to load a game:"
+  # end
+
+  def good_guess?(guess)
+    return false if @guesses.include?(guess)
+    true
   end
 
   def get_game_type

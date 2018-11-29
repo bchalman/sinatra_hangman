@@ -13,7 +13,7 @@ get '/game' do
   @@game = Game.new("new")
   guesses_remaining = @@game.guesses_remaining
   revealed_letters = @@game.revealed_letters.join(' ')
-  all_guesses = @@game.player.guesses.join(',')
+  all_guesses = @@game.guesses.join(',')
   solution = @@game.random_word
 
   erb :guess, layout: :main, :locals => {:guesses_remaining => guesses_remaining, :revealed_letters => revealed_letters,
@@ -28,6 +28,25 @@ end
 
 post '/guess' do
 
+  guess = params["guess"].downcase
+  @@game.play(guess)
+  guesses_remaining = @@game.guesses_remaining
+  revealed_letters = @@game.revealed_letters.join(' ')
+  all_guesses = @@game.guesses.join(',')
+  solution = @@game.random_word
 
+  erb :guess, layout: :main, :locals => {:guesses_remaining => guesses_remaining, :revealed_letters => revealed_letters,
+    :all_guesses => all_guesses, :solution => solution}
+
+end
+
+get '/win' do
+
+  solution = @@game.random_word
+  erb :win, layout: :main, :locals => {:solution => solution}
+
+end
+
+get '/lose' do
 
 end

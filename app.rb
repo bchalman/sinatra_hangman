@@ -33,7 +33,12 @@ post '/guess' do
   guesses_remaining = @@game.guesses_remaining
   revealed_letters = @@game.revealed_letters.join(' ')
   all_guesses = @@game.guesses.join(',')
-  solution = @@game.random_word
+  solution = @@game.random_word.downcase
+
+  if @@game.game_over?
+    redirect '/win' if @@game.revealed_letters.join('') == solution
+    redirect '/lose' if guesses_remaining <= 0
+  end
 
   erb :guess, layout: :main, :locals => {:guesses_remaining => guesses_remaining, :revealed_letters => revealed_letters,
     :all_guesses => all_guesses, :solution => solution}
@@ -48,5 +53,8 @@ get '/win' do
 end
 
 get '/lose' do
+
+  solution = @@game.random_word
+  erb :lose, layout: :main, :locals => {:solution => solution}
 
 end

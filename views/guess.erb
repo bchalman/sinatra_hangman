@@ -1,22 +1,27 @@
-<p>Guess the <%= solution.length %>-letter word!</p>
-<div>
+<h3>Guess the <%= solution.length %>-letter word!</h3>
+<div class="game_board">
+  <div id="hangman">
+    <img src="images/hangman_<%= image_key %>.png" alt="hangman">
+  </div>
+
+  <p id="hidden_word"><%= revealed_letters %></p>
+  <br>
+  <% if guesses_remaining > 1 %>
+  <p class="game_info">You have <%= guesses_remaining.to_s %> guesses remaining.</p>
+  <% else %>
+  <p class="game_info">You have <%= guesses_remaining.to_s %> guess remaining.</p>
+  <% end %>
+
+  <p class="game_info">Previous guesses: <%= all_guesses %></p>
 
 </div>
 
-<p><%= revealed_letters %></p>
-
-<p>Previous guesses: <%= all_guesses %></p>
-
-<% if guesses_remaining > 1 %>
-  <p>You have <%= guesses_remaining.to_s %> guesses remaining.</p>
-<% else %>
-  <p>You have <%= guesses_remaining.to_s %> guess remaining.</p>
-<% end %>
 
 <form action="/guess", method="POST">
+  <br>
   Guess a letter (a-z):
-  <input type="text" name="guess" maxlength="1" pattern="[A-Za-z]" required/><br>
-  <input type="submit" name="submit">
+  <input id="text_guess" type="text" name="guess" maxlength="1" pattern="[A-Za-z]" required/><br>
+  <input class="submit_button" type="submit" name="submit">
 </form>
-
-<a href="/">Main Menu</a>
+<br>
+<a href="/">Exit to Main Menu</a>

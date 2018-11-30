@@ -1,7 +1,17 @@
 <h2>Bummer, you lose!</h2>
-<br>
-<p>The correct word was: <%= solution %></p>
 
+<div class="game_board">
+  <div id="hangman">
+    <img src="images/hangman_<%= image_key %>.png" alt="hangman">
+  </div>
+
+  <p class="game_info">
+        Wow... that's kind of cruel. You know that, right?
+    <br>You brought the fellow into the world only to lose him immediately. Nice...
+    <br>
+    <br>The correct word was: <%= solution %></p>
+</div>
+<br>
 <form action="/", method="GET">
-  <input type="submit" value="Main Menu">
+  <input class="submit_button" type="submit" value="Main Menu">
 </form>

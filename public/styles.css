@@ -1,0 +1,105 @@
+html {
+  font-size: 13px;
+  background-color: #fff6eb;
+  font-family: Courier, Helvetica, Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  font-size: 1.5em;
+}
+
+header {
+  background-color: #ea6e5f;
+  padding: 20px 0;
+  box-shadow: 0 0 5px #ea6e5f;
+  font-size: 1.5em;
+  font-weight: bold
+}
+
+div {
+  margin: 30px auto 0 auto;
+  border-radius: 20px;
+}
+
+input {
+  width: 100%;
+  height: 50px;
+  font-size: 1em;
+  margin-bottom: 15px;
+  padding: 0;
+}
+
+h3 {
+  font-size: 1.5em;
+  margin: 20px auto;
+}
+
+p{
+  word-wrap: break-word;
+  text-align: left;
+}
+
+
+.container{
+  width: 1200px;
+  max-width: 80%;
+  height: 1000px;
+  background-color: #ea6e5f;
+  padding: 20px;
+  box-shadow: 0 0 5px #ea6e5f;
+  border-radius: 10px;
+}
+
+.game_board{
+  width: 90%;
+  height: 70%;
+  background-color: #fff6eb;
+  padding: 15px;
+}
+
+.submit_button {
+  width: 400px;
+  border-radius: 10px;
+  box-shadow: 0 0 5px #ea6e5f;
+  background-color: white;
+}
+
+div #hangman {
+  height: 70%;
+  margin: 0;
+  border-radius: none;
+  box-shadow: none;
+}
+
+img {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+#hidden_word{
+  margin: 10px auto;
+  text-align: center;
+  font-size: 1.8em;
+  font-weight: bold;
+}
+
+.game_info {
+  text-align: center;
+  margin: 10px auto;
+}
+
+input {
+  margin: 10px auto;
+  width: 200px;
+}
+
+#text_guess {
+  width: 200px;
+  background-color: #fff6eb;
+  box-shadow: 0 0 5px #ea6e5f;
+  border-radius: 10px;
+  margin: 5px auto;
+}

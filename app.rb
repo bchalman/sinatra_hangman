@@ -15,15 +15,11 @@ get '/game' do
   revealed_letters = @@game.revealed_letters.join(' ')
   all_guesses = @@game.guesses.join(',')
   solution = @@game.random_word
+  image_key = @@game.guesses_remaining.to_s
+  hide_link = "hidden"
 
   erb :guess, layout: :main, :locals => {:guesses_remaining => guesses_remaining, :revealed_letters => revealed_letters,
-                                         :all_guesses => all_guesses, :solution => solution}
-end
-
-get '/load_game' do
-
-  #@@game = Game.new("load")
-
+                                         :all_guesses => all_guesses, :solution => solution, :image_key => image_key, :hide_link => hide_link}
 end
 
 post '/guess' do
@@ -34,6 +30,7 @@ post '/guess' do
   revealed_letters = @@game.revealed_letters.join(' ')
   all_guesses = @@game.guesses.join(',')
   solution = @@game.random_word.downcase
+  image_key = @@game.guesses_remaining.to_s
 
   if @@game.game_over?
     redirect '/win' if @@game.revealed_letters.join('') == solution
@@ -41,20 +38,22 @@ post '/guess' do
   end
 
   erb :guess, layout: :main, :locals => {:guesses_remaining => guesses_remaining, :revealed_letters => revealed_letters,
-    :all_guesses => all_guesses, :solution => solution}
+    :all_guesses => all_guesses, :solution => solution, :image_key => image_key}
 
 end
 
 get '/win' do
 
   solution = @@game.random_word
-  erb :win, layout: :main, :locals => {:solution => solution}
+  image_key = "win"
+  erb :win, layout: :main, :locals => {:solution => solution, :image_key => image_key}
 
 end
 
 get '/lose' do
 
   solution = @@game.random_word
-  erb :lose, layout: :main, :locals => {:solution => solution}
+  image_key = "0"
+  erb :lose, layout: :main, :locals => {:solution => solution, :image_key => image_key}
 
 end

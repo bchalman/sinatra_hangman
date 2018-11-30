@@ -1,5 +1,14 @@
-<h2>Congratulations! You guessed the word, <%= solution.upcase %></h2>
+<h2>Congratulations! You win!</h2>
+
+<div class="game_board">
+  <div id="hangman">
+    <img src="images/hangman_<%= image_key %>.png" alt="hangman">
+  </div>
+
+  <p class="game_info">You guessed the correct word: <b><%= solution %></b></p>
+</div>
+<br>
 
 <form action="/", method="GET">
-  <input type="submit" value="Main Menu">
+  <input class="submit_button" type="submit" value="Main Menu">
 </form>

@@ -1,20 +1,19 @@
 <h3>
   Welcome to Hangman!
 </h3>
-<p>
-  Rules:
-  <br> - The computer will generate a random word, which you need to guess.
-  <br> - The word to guess will be represented by a row of dashes, each dash representing a letter.
-  <br> - Each turn, the player can guess individual letters or the entire word.
-  <br> - A successful letter guess will populate the appropriate display dashes with the chosen letter.
-  <br> - An incorrect guess will be a mark against the player.
-  <br> - Guessing the entire word correctly or filling in all the blanks means you win!
-  <br> - Six incorrect guesses, and you lose!
-</p>
+<div class="game_board">
+  <p>
+    Rules:
+    <br> - The computer will generate a random word, which you need to guess.
+    <br> - The word to guess will be represented by a row of dashes, each dash representing a letter.
+    <br> - Each turn, the player can guess individual letters within the word.
+    <br> - A successful guess will populate the appropriate dashes with the chosen letter.
+    <br> - An incorrect guess will be a mark against the player.
+    <br> - Filling in all the blanks means you win!
+    <br> - Six incorrect guesses, and you lose!
+  </p>
+</div>
 
 <form action="/game", method="GET">
-  <input type="submit" value="New Game">
-</form>
-<form action="/load_game", method="GET">
-  <input type="Submit" value="Load Game">
+  <input class="submit_button" type="submit" value="Play Game">
 </form>

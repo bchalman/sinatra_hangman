@@ -10,12 +10,12 @@ end
 
 get '/game' do
 
-  @@game = Game.new("new")
-  guesses_remaining = @@game.guesses_remaining
-  revealed_letters = @@game.revealed_letters.join(' ')
-  all_guesses = @@game.guesses.join(',')
-  solution = @@game.random_word
-  image_key = @@game.guesses_remaining.to_s
+  session['game'] = Game.new("new")
+  guesses_remaining = session['game'].guesses_remaining
+  revealed_letters = session['game'].revealed_letters.join(' ')
+  all_guesses = session['game'].guesses.join(',')
+  solution = session['game'].random_word
+  image_key = session['game'].guesses_remaining.to_s
   hide_link = "hidden"
 
   erb :guess, layout: :main, :locals => {:guesses_remaining => guesses_remaining, :revealed_letters => revealed_letters,
@@ -25,15 +25,15 @@ end
 post '/guess' do
 
   guess = params["guess"].downcase
-  @@game.play(guess)
-  guesses_remaining = @@game.guesses_remaining
-  revealed_letters = @@game.revealed_letters.join(' ')
-  all_guesses = @@game.guesses.join(',')
-  solution = @@game.random_word.downcase
-  image_key = @@game.guesses_remaining.to_s
+  session['game'].play(guess)
+  guesses_remaining = session['game'].guesses_remaining
+  revealed_letters = session['game'].revealed_letters.join(' ')
+  all_guesses = session['game'].guesses.join(',')
+  solution = session['game'].random_word.downcase
+  image_key = session['game'].guesses_remaining.to_s
 
-  if @@game.game_over?
-    redirect '/win' if @@game.revealed_letters.join('') == solution
+  if session['game'].game_over?
+    redirect '/win' if session['game'].revealed_letters.join('') == solution
     redirect '/lose' if guesses_remaining <= 0
   end
 
@@ -44,7 +44,7 @@ end
 
 get '/win' do
 
-  solution = @@game.random_word
+  solution = session['game'].random_word
   image_key = "win"
   erb :win, layout: :main, :locals => {:solution => solution, :image_key => image_key}
 
@@ -52,7 +52,7 @@ end
 
 get '/lose' do
 
-  solution = @@game.random_word
+  solution = session['game'].random_word
   image_key = "0"
   erb :lose, layout: :main, :locals => {:solution => solution, :image_key => image_key}
 

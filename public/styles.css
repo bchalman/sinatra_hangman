@@ -2,6 +2,7 @@ html {
   font-size: 13px;
   background-color: #fff6eb;
   font-family: Courier, Helvetica, Arial, sans-serif;
+  height: 100%;
 }
 
 body {
@@ -9,6 +10,7 @@ body {
   padding: 0;
   text-align: center;
   font-size: 1.5em;
+  max-height: 90%;
 }
 
 header {
@@ -47,6 +49,7 @@ p{
   width: 1200px;
   max-width: 80%;
   height: 1000px;
+  max-height: 100%;
   background-color: #ea6e5f;
   padding: 20px;
   box-shadow: 0 0 5px #ea6e5f;
